@@ -1,7 +1,9 @@
 import 'package:device_preview/device_preview.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
+import 'package:quran/data_layer/data_layer.dart';
 import 'package:quran/screens/auth_screens/auth_screen.dart';
+import 'package:quran/screens/search_screen/search_screen.dart';
 import 'package:quran/setup/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
@@ -26,9 +28,11 @@ class MainApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return const MaterialApp(
+    return MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: AuthScreen(),
+      home: getIt.get<DataLayer>().userId == null
+          ? const AuthScreen()
+          : const SearchScreen(),
     );
   }
 }

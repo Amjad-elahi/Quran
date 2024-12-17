@@ -3,7 +3,7 @@ import 'package:lottie/lottie.dart';
 import 'package:quran/components/custom_elevated_button.dart';
 import 'package:quran/components/custom_error_msg.dart';
 import 'package:quran/screens/auth_screens/cubit/auth_cubit.dart';
-import 'package:quran/screens/home_screen/home_screen.dart';
+import 'package:quran/screens/search_screen/search_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -30,7 +30,7 @@ class SignUpScreen extends StatelessWidget {
             if (state is SuccessState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
-                return const HomeScreen();
+                return const SearchScreen();
               }));
             }
             if (state is ErrorState) {
@@ -44,20 +44,22 @@ class SignUpScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
-            backgroundColor: const Color(0xffFEFFFF),
+            backgroundColor: Colors.transparent,
             body: Form(
               key: cubit.formKey,
-              child: ListView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
                     height: 40,
                   ),
                   const Text(
-                    'Welcome to Lorem',
+                    'Welcome to Quran Search',
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
-                    height: 70,
+                    height: 40,
                   ),
                   const Text(
                     'Enter your name',
@@ -84,7 +86,7 @@ class SignUpScreen extends StatelessWidget {
                         fillColor: const Color(0xffF7F7F7)),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 16,
                   ),
                   const Text(
                     'Enter your email address',
@@ -117,7 +119,7 @@ class SignUpScreen extends StatelessWidget {
                         fillColor: const Color(0xffF7F7F7)),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 16,
                   ),
                   const Text(
                     'Enter your Password',
@@ -139,6 +141,7 @@ class SignUpScreen extends StatelessWidget {
                       }
                       return null;
                     },
+                    obscureText: true,
                     controller: cubit.signUpPassController,
                     decoration: InputDecoration(
                         suffixIcon: const Icon(Icons.remove_red_eye),
@@ -146,24 +149,10 @@ class SignUpScreen extends StatelessWidget {
                         hintText: '********',
                         hintStyle: const TextStyle(color: Color(0xff808080)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                const BorderSide(color: Color(0xff88B2A8))),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         filled: true,
                         fillColor: const Color(0xffF7F7F7)),
-                  ),
-                  const SizedBox(
-                    height: 10,
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      TextButton(
-                          onPressed: () {},
-                          child: const Text("Forgot Password?",
-                              style: TextStyle(
-                                  color: Color(0xffD2B7A4), fontSize: 14))),
-                    ],
                   ),
                   const SizedBox(
                     height: 50,

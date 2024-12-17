@@ -4,7 +4,7 @@ import 'package:lottie/lottie.dart';
 import 'package:quran/components/custom_elevated_button.dart';
 import 'package:quran/components/custom_error_msg.dart';
 import 'package:quran/screens/auth_screens/cubit/auth_cubit.dart';
-import 'package:quran/screens/home_screen/home_screen.dart';
+import 'package:quran/screens/search_screen/search_screen.dart';
 
 class SignInScreen extends StatelessWidget {
   const SignInScreen({super.key});
@@ -23,13 +23,14 @@ class SignInScreen extends StatelessWidget {
                   barrierDismissible: false,
                   builder: (context) => AlertDialog(
                       backgroundColor: Colors.transparent,
-                      content: Lottie.asset('assets/json/loading_animation.json',
+                      content: Lottie.asset(
+                          'assets/json/loading_animation.json',
                           width: 100)));
             }
             if (state is SuccessState) {
               Navigator.pushReplacement(context,
                   MaterialPageRoute(builder: (context) {
-                return const HomeScreen();
+                return const SearchScreen();
               }));
             }
             if (state is ErrorState) {
@@ -42,20 +43,21 @@ class SignInScreen extends StatelessWidget {
             }
           },
           child: Scaffold(
-            backgroundColor: const Color(0xffFEFFFF),
+            backgroundColor: Colors.transparent,
             body: Form(
               key: cubit.formKey,
-              child: ListView(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   const SizedBox(
                     height: 40,
                   ),
                   const Text(
-                    'Welcome to Lorem',
+                    'Welcome to Quran Search',
                     style: TextStyle(fontSize: 20),
                   ),
                   const SizedBox(
-                    height: 70,
+                    height: 40,
                   ),
                   const Text(
                     'Enter your email address',
@@ -88,7 +90,7 @@ class SignInScreen extends StatelessWidget {
                         fillColor: const Color(0xffF7F7F7)),
                   ),
                   const SizedBox(
-                    height: 30,
+                    height: 16,
                   ),
                   const Text('Enter your Password',
                       style: TextStyle(fontSize: 16)),
@@ -109,15 +111,15 @@ class SignInScreen extends StatelessWidget {
                       return null;
                     },
                     controller: cubit.signInPassController,
+                    obscureText: true,
                     decoration: InputDecoration(
                         suffixIcon: const Icon(Icons.remove_red_eye),
                         suffixIconColor: const Color(0xff808080),
                         hintText: '********',
                         hintStyle: const TextStyle(color: Color(0xff808080)),
                         border: OutlineInputBorder(
-                            borderRadius: BorderRadius.circular(20),
-                            borderSide:
-                                const BorderSide(color: Color(0xff88B2A8))),
+                          borderRadius: BorderRadius.circular(20),
+                        ),
                         filled: true,
                         fillColor: const Color(0xffF7F7F7)),
                   ),
@@ -131,11 +133,11 @@ class SignInScreen extends StatelessWidget {
                           onPressed: () {},
                           child: const Text("Forgot Password?",
                               style: TextStyle(
-                                  color: Color(0xffD2B7A4), fontSize: 14))),
+                                  color: Color(0xff9C7E7E), fontSize: 14))),
                     ],
                   ),
                   const SizedBox(
-                    height: 50,
+                    height: 105,
                   ),
                   CustomElevatedButton(
                     onPressed: () {

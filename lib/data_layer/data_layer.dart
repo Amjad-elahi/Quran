@@ -5,6 +5,10 @@ import 'package:quran/network/api_network.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
 
 class DataLayer {
+  DataLayer() {
+    loadData();
+  }
+
   final supabase = Supabase.instance.client;
   final box = GetStorage();
   ApiNetwork api = ApiNetwork();
@@ -12,13 +16,15 @@ class DataLayer {
   List<Matches> wordMatches = [];
   List<Matches> filteredWordMatches = [];
   List<SurahModel> surah = [];
+  String? userId;
 
   Future<List<Matches>> getWordMatches(String keyword) async {
     wordMatches = await api.generalSearch(keyword);
     return wordMatches;
   }
 
-  Future<List<Matches>> getFilterWordMatches(String keyword, int numOfSurah) async {
+  Future<List<Matches>> getFilterWordMatches(
+      String keyword, int numOfSurah) async {
     filteredWordMatches = await api.filteredSearch(keyword, numOfSurah);
     return filteredWordMatches;
   }
@@ -28,4 +34,14 @@ class DataLayer {
     return surah;
   }
 
+  loadData() {
+    if (box.hasData("userId")) {
+      userId = box.read('userId');
+    }
+  }
+
+  logout() {
+    box.erase();
+    supabase.auth.signOut();
+  }
 }

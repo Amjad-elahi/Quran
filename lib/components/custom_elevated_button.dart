@@ -8,20 +8,20 @@ class CustomElevatedButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
-                  onPressed: onPressed,
-                  style: ElevatedButton.styleFrom(
-                      fixedSize: const Size.fromHeight(53),
-                      backgroundColor: const Color(0xff88B2A8),
-                      shape: RoundedRectangleBorder(
-                          borderRadius: BorderRadius.circular(31))),
-                  child: Center(
-                      child: Text(
-                    text,
-                    style: const TextStyle(
-                        color: Color(0xffFEFFFF),
-                        fontSize: 16,
-                        fontWeight: FontWeight.bold),
-                  )),
-                );
+      onPressed: onPressed,
+      style: ElevatedButton.styleFrom(
+          fixedSize: const Size.fromHeight(53),
+          backgroundColor: const Color(0xff796181),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(31))),
+      child: Center(
+          child: Text(
+        text,
+        style: const TextStyle(
+            color: Color(0xffFEFFFF),
+            fontSize: 16,
+            fontWeight: FontWeight.bold),
+      )),
+    );
   }
 }

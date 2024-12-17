@@ -30,7 +30,7 @@ class AuthCubit extends Cubit<AuthState> {
           .eq("email", signUpEmailController.text);
       print('Query1 completed: ${DateTime.now()}');
       if (response.isNotEmpty) {
-        emit(ErrorState(msg: "Account Already registered."));
+        emit(ErrorState(msg: "Account Already registered"));
       } else {
         print('Sign-up2 start: ${DateTime.now()}');
         await supabase.auth.signUp(
@@ -40,8 +40,12 @@ class AuthCubit extends Cubit<AuthState> {
             'name': nameController.text,
             'email': signUpEmailController.text
           },
-        ).timeout(Duration(seconds: 30));
+        );
         print('Query2 completed: ${DateTime.now()}');
+        getIt
+            .get<DataLayer>()
+            .box
+            .write('userId', supabase.auth.currentUser!.id);
         emit(SuccessState());
       }
     } on AuthException catch (e) {
@@ -72,11 +76,19 @@ class AuthCubit extends Cubit<AuthState> {
           email: signInEmailController.text,
           password: signInPassController.text,
         );
+        getIt
+            .get<DataLayer>()
+            .box
+            .write('userId', supabase.auth.currentUser!.id);
         emit(SuccessState());
       }
     } on AuthException catch (e) {
       emit(ErrorState(msg: e.message));
     } on PostgrestException catch (e) {
+      emit(ErrorState(msg: e.message));
+    } on TimeoutException catch (e) {
+      emit(ErrorState(msg: e.toString()));
+    } on SocketException catch (e) {
       emit(ErrorState(msg: e.message));
     } catch (e) {
       emit(ErrorState(msg: e.toString()));

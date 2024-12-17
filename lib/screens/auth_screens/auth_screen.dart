@@ -9,56 +9,103 @@ class AuthScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      backgroundColor: const Color(0xffFEFFFF),
-      appBar: AppBar(
-        backgroundColor: Colors.transparent,
-        leading: const Icon(Icons.abc_outlined),
+    return Container(
+      decoration: const BoxDecoration(
+        gradient: LinearGradient(colors: [
+          Color(0xffEEDCDF),
+          Color(0xffDFDFE1),
+          Color(0xffE9DFE1),
+          Color(0xffD4DBDD),
+          Color(0xffD8D9DB)
+        ], begin: Alignment.topLeft),
       ),
-      body: SafeArea(
-          child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 40),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Container(
-                padding:
-                    const EdgeInsets.symmetric(horizontal: 60, vertical: 20),
-                width: MediaQuery.of(context).size.width / 2.5,
-                height: MediaQuery.of(context).size.height / 1.2,
-                decoration: BoxDecoration(
-                    color: const Color(0xffFEFFFF),
-                    borderRadius: BorderRadius.circular(30),
-                    boxShadow: [
-                      BoxShadow(
-                          color: const Color(0xffD2B7A4).withOpacity(0.5),
-                          blurStyle: BlurStyle.normal,
-                          blurRadius: 35)
-                    ]),
-                child: ContainedTabBarView(
-                  tabBarProperties: const TabBarProperties(
-                      indicatorColor: Color(0xff88B2A8),
-                      labelColor: Color(0xff88B2A8),
-                      labelStyle: TextStyle(fontWeight: FontWeight.bold),
-                      unselectedLabelStyle:
-                          TextStyle(fontWeight: FontWeight.normal)),
-                  tabs: const [
-                    Text(
-                      'Sign up',
-                      style: TextStyle(fontSize: 16),
-                    ),
-                    Text('Sign in', style: TextStyle(fontSize: 16)),
-                  ],
-                  views: const [SignUpScreen(), SignInScreen()],
-                )),
-            Image.asset(
-              'assets/png/auth_img.png',
-              width: MediaQuery.of(context).size.width / 2.4,
-              height: MediaQuery.of(context).size.height / 2,
-            ),
-          ],
+      child: Scaffold(
+        backgroundColor: Colors.transparent,
+        appBar: AppBar(
+          backgroundColor: Colors.transparent,
+          toolbarHeight: 80,
+          leading: Image.asset(
+            'assets/png/Quran_logo.png',
+          ),
+          leadingWidth: 150,
         ),
-      )),
+        body: LayoutBuilder(
+          builder: (context, constraints) {
+            if (constraints.maxWidth > 600) {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 50, vertical: 20),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                  children: [
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width / 2.5,
+                        height: MediaQuery.of(context).size.height / 1.2,
+                        child: ContainedTabBarView(
+                          tabBarProperties: const TabBarProperties(
+                              indicatorColor: Color(0xff796181),
+                              labelColor: Color(0xff796181),
+                              labelStyle:
+                                  TextStyle(fontWeight: FontWeight.bold),
+                              unselectedLabelStyle:
+                                  TextStyle(fontWeight: FontWeight.normal)),
+                          tabs: const [
+                            Text(
+                              'Sign up',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text('Sign in', style: TextStyle(fontSize: 16)),
+                          ],
+                          views: const [SignUpScreen(), SignInScreen()],
+                        )),
+                    Expanded(
+                      child: Image.asset(
+                        'assets/png/auth_image.png',
+                        width: MediaQuery.of(context).size.width / 2.4,
+                        height: MediaQuery.of(context).size.height / 2,
+                      ),
+                    ),
+                  ],
+                ),
+              );
+            } else {
+              return Padding(
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 20),
+                child: ListView(
+                  children: [
+                    Image.asset(
+                      'assets/png/auth_image.png',
+                      width: MediaQuery.of(context).size.width / 1.5,
+                      height: MediaQuery.of(context).size.width / 1.5,
+                    ),
+                    SizedBox(
+                        width: MediaQuery.of(context).size.width,
+                        height: MediaQuery.of(context).size.height / 1.2,
+                        child: ContainedTabBarView(
+                          tabBarProperties: const TabBarProperties(
+                              indicatorColor: Color(0xff796181),
+                              labelColor: Color(0xff796181),
+                              labelStyle:
+                                  TextStyle(fontWeight: FontWeight.bold),
+                              unselectedLabelStyle:
+                                  TextStyle(fontWeight: FontWeight.normal)),
+                          tabs: const [
+                            Text(
+                              'Sign up',
+                              style: TextStyle(fontSize: 16),
+                            ),
+                            Text('Sign in', style: TextStyle(fontSize: 16)),
+                          ],
+                          views: const [SignUpScreen(), SignInScreen()],
+                        )),
+                  ],
+                ),
+              );
+            }
+          },
+        ),
+      ),
     );
   }
 }
