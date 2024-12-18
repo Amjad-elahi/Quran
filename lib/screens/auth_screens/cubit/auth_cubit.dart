@@ -26,17 +26,14 @@ class AuthCubit extends Cubit<AuthState> {
   signUp() async {
     emit(LoadingState());
     try {
-      print('Sign-up1 start: ${DateTime.now()}');
       // checking if email already registered
       response = await supabase
           .from("users")
           .select('email')
           .eq("email", signUpEmailController.text);
-      print('Query1 completed: ${DateTime.now()}');
       if (response.isNotEmpty) {
         emit(ErrorState(msg: "Account Already registered"));
       } else {
-        print('Sign-up2 start: ${DateTime.now()}');
         // sign up user and store the data in supabase
         await supabase.auth.signUp(
           email: signUpEmailController.text,
@@ -46,7 +43,6 @@ class AuthCubit extends Cubit<AuthState> {
             'email': signUpEmailController.text
           },
         );
-        print('Query2 completed: ${DateTime.now()}');
         // store user id
         getIt
             .get<DataLayer>()

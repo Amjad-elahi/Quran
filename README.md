@@ -4,7 +4,7 @@
 
 # Quran Search Web Application
 
-This project is a simple Quran search web application where users can search for specific Quranic verses in English. It includes functionality for login page, a searchable interface, and enable semantic search for Surah Al-Kahf using embeddings.
+This project is a simple Quran search web application where users can search for specific Quranic verses in English. It includes functionality for Authentication pages and searchable interface.
 
 ## Key Features
 
@@ -12,9 +12,6 @@ This project is a simple Quran search web application where users can search for
 2. Search Page:
     - Users can search for verses across the Quran using keywords.
     - A real-time search bar dynamically displays results below it.
-<!-- 3. Semantic Search for Surah Al-Kahf:
-    - Uses embeddings to match queries like “the cave story” with related verses from Surah Al-Kahf.
-    - Incorporates normal keyword-based search for other Surahs. -->
 
 ## Requirements
 
@@ -57,19 +54,20 @@ flutter run
 2. search page
    - searching for a word as general search (in all the quran)
    - searching for a word in specific surah
-   <!-- - semantic search for Surah Al-Kahf -->
 
 ## Challenges Faced
-1.	Understanding Embeddings:
-    -	Generating embeddings for verses required preprocessing and an external Python-based script.
-2.	Real-Time Search Performance:
+1.	Real-Time Search Performance:
     -	Optimizing results display to handle large datasets efficiently.
 
 ## Sample Output
 
-<!-- <p align="center">
-<img src="" alt="" width="400"/>
-<br/> -->
+<p align="center">
+<img src="assets/output/quran_search_output1.gif" alt="output1" width="400"/>
+<br/>
+
+<p align="center">
+<img src="assets/output/quran_search_output2.gif" alt="output2" width="400"/>
+<br/>
 
 ## Created by
 [Amjad Elahi](https://github.com/Amjad-elahi)

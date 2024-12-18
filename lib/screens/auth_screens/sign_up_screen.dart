@@ -40,7 +40,6 @@ class SignUpScreen extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    print(state.msg);
                     return CustomErrorDialog(msg: (state.msg));
                   });
             }

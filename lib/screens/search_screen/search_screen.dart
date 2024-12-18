@@ -35,7 +35,6 @@ class SearchScreen extends StatelessWidget {
               showDialog(
                   context: context,
                   builder: (context) {
-                    print(state.msg);
                     return CustomErrorDialog(msg: (state.msg));
                   });
             }
@@ -125,11 +124,7 @@ class SearchScreen extends StatelessWidget {
                                           child: BlocBuilder<SearchCubit,
                                               SearchState>(
                                             builder: (context, state) {
-                                              print(
-                                                  'Building BlocBuilder with state: $state');
                                               if (state is SurahDetailsState) {
-                                                print(
-                                                    'Building BlocBuilder with state: $state');
                                                 return Padding(
                                                   padding:
                                                       const EdgeInsets.all(8.0),
@@ -169,10 +164,6 @@ class SearchScreen extends StatelessWidget {
                                                               (context, index) {
                                                             final surah = state
                                                                 .surah[index];
-                                                            print(
-                                                                "Displaying Surah: ${surah.englishName}");
-                                                            print(
-                                                                "surah.surah.name ${surah.englishName}");
                                                             return ListTile(
                                                               title: Text(
                                                                   "${surah.number}- ${surah.englishName}"),
@@ -236,7 +227,6 @@ class SearchScreen extends StatelessWidget {
                               },
                               itemBuilder: (context, index) {
                                 final word = state.matchWord[index];
-                                print(word.number);
                                 return ListTile(
                                   title: Text(word.surah.englishName),
                                   subtitle: Text(word.text),

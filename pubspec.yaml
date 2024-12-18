@@ -31,3 +31,4 @@ flutter:
     - assets/png/
     - assets/json/
     - .env
+    - assets/output/
