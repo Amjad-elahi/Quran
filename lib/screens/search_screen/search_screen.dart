@@ -228,7 +228,11 @@ class SearchScreen extends StatelessWidget {
                               itemBuilder: (context, index) {
                                 final word = state.matchWord[index];
                                 return ListTile(
-                                  title: Text(word.surah.englishName),
+                                  title: Text(
+                                    word.surah.englishName,
+                                    style:
+                                        const TextStyle(fontWeight: FontWeight.bold),
+                                  ),
                                   subtitle: Text(word.text),
                                   shape: RoundedRectangleBorder(
                                       side: const BorderSide(

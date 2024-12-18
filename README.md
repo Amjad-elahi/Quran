@@ -13,6 +13,43 @@ This project is a simple Quran search web application where users can search for
     - Users can search for verses across the Quran using keywords.
     - A real-time search bar dynamically displays results below it.
 
+## Project Architecture
+```bash
+lib
+│
+┣ 📂components                        # Custom reusable components
+┃ ┣ 📜custom_elevated_button.dart
+┃ ┣ 📜custom_error_msg.dart
+┃ ┗ 📜custom_text_form_field.dart
+┣ 📂data_layer                        # managing data
+┃ ┗ 📜data_layer.dart
+┣ 📂models                            # Converting API data into a structured format for easy manipulation
+┃ ┣ 📜search_model.dart
+┃ ┗ 📜surah_model.dart
+┣ 📂network                            # Manages API URLs and data fetching logic
+┃ ┣ 📂mixin
+┃ ┃ ┣ 📜search_method.dart
+┃ ┃ ┗ 📜surah_method.dart
+┃ ┣ 📜api_network.dart
+┃ ┗ 📜constant_network.dart
+┣ 📂screens                            # Contains UI screens for the app
+┃ ┣ 📂auth_screens
+┃ ┃ ┣ 📂cubit
+┃ ┃ ┃ ┣ 📜auth_cubit.dart
+┃ ┃ ┃ ┗ 📜auth_state.dart
+┃ ┃ ┣ 📜auth_screen.dart
+┃ ┃ ┣ 📜sign_in_screen.dart
+┃ ┃ ┗ 📜sign_up_screen.dart
+┃ ┗ 📂search_screen
+┃   ┣ 📂cubit
+┃   ┃ ┣ 📜search_cubit.dart
+┃   ┃ ┗ 📜search_state.dart
+┃   ┗ 📜search_screen.dart
+┣ 📂setup                             # Provides global object access throughout the web app
+┃ ┗ 📜setup.dart
+┗ 📜main.dart                         # Entry point to run the web application
+```
+
 ## Requirements
 
  In order to run the web, this project requires a Dart SDK and Flutter SDK.

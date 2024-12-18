@@ -10,18 +10,17 @@ class DataLayer {
     loadData();
   }
 
-  // instance variables for later uses 
+  // instance variables for later uses
   final supabase = Supabase.instance.client;
   final box = GetStorage();
   ApiNetwork api = ApiNetwork();
-
 
   List<Matches> wordMatches = [];
   List<Matches> filteredWordMatches = [];
   List<SurahModel> surah = [];
   String? userId;
 
-  // fetch all ayahs that contain the match word in all the quran 
+  // fetch all ayahs that contain the match word in all the quran
   Future<List<Matches>> getWordMatches(String keyword) async {
     wordMatches = await api.generalSearch(keyword);
     return wordMatches;
@@ -39,8 +38,8 @@ class DataLayer {
     surah = await api.getSurahDetails();
     return surah;
   }
-
-  // store user id 
+  
+  // store user id
   loadData() {
     if (box.hasData("userId")) {
       userId = box.read('userId');

@@ -26,30 +26,18 @@ class AuthCubit extends Cubit<AuthState> {
   signUp() async {
     emit(LoadingState());
     try {
-      // checking if email already registered
-      response = await supabase
-          .from("users")
-          .select('email')
-          .eq("email", signUpEmailController.text);
-      if (response.isNotEmpty) {
-        emit(ErrorState(msg: "Account Already registered"));
-      } else {
-        // sign up user and store the data in supabase
-        await supabase.auth.signUp(
-          email: signUpEmailController.text,
-          password: signUpPassController.text,
-          data: {
-            'name': nameController.text,
-            'email': signUpEmailController.text
-          },
-        );
-        // store user id
-        getIt
-            .get<DataLayer>()
-            .box
-            .write('userId', supabase.auth.currentUser!.id);
-        emit(SuccessState());
-      }
+      // sign up user and store the data in supabase
+      await supabase.auth.signUp(
+        email: signUpEmailController.text,
+        password: signUpPassController.text,
+        data: {
+          'name': nameController.text,
+          'email': signUpEmailController.text
+        },
+      );
+      // store user id
+      getIt.get<DataLayer>().box.write('userId', supabase.auth.currentUser!.id);
+      emit(SuccessState());
     } on AuthException catch (e) {
       emit(ErrorState(msg: e.message));
     } on PostgrestException catch (e) {
@@ -103,5 +91,15 @@ class AuthCubit extends Cubit<AuthState> {
   passwordVisibility() {
     isVisible = !isVisible;
     emit(PassVisibilityState(isVisible: isVisible));
+  }
+
+  @override
+  Future<void> close() {
+    signInEmailController.dispose();
+    signInPassController.dispose();
+    signUpEmailController.dispose();
+    signUpPassController.dispose();
+    nameController.dispose();
+    return super.close();
   }
 }
