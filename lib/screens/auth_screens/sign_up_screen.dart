@@ -6,6 +6,7 @@ import 'package:quran/screens/auth_screens/cubit/auth_cubit.dart';
 import 'package:quran/screens/search_screen/search_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+/* sign up screen UI */
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
@@ -128,31 +129,47 @@ class SignUpScreen extends StatelessWidget {
                   const SizedBox(
                     height: 8,
                   ),
-                  TextFormField(
-                    validator: (value) {
-                      if (value == null || value.isEmpty) {
-                        return "Please enter your password";
+                  BlocBuilder<AuthCubit, AuthState>(
+                    builder: (context, state) {
+                      bool isPassVisible = false;
+                      if (state is PassVisibilityState) {
+                        isPassVisible = state.isVisible;
                       }
-                      String pattern =
-                          r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
-                      RegExp regex = RegExp(pattern);
-                      if (!regex.hasMatch(value)) {
-                        return 'Please enter a valid password';
-                      }
-                      return null;
+                      return TextFormField(
+                        validator: (value) {
+                          if (value == null || value.isEmpty) {
+                            return "Please enter your password";
+                          }
+                          String pattern =
+                              r'^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[!@#\$&*~]).{8,}$';
+                          RegExp regex = RegExp(pattern);
+                          if (!regex.hasMatch(value)) {
+                            return 'Please enter a valid password';
+                          }
+                          return null;
+                        },
+                        obscureText: !isPassVisible,
+                        controller: cubit.signUpPassController,
+                        decoration: InputDecoration(
+                            suffixIcon: IconButton(
+                              onPressed: () {
+                                cubit.passwordVisibility();
+                              },
+                              icon: Icon(isPassVisible
+                                  ? Icons.visibility_rounded
+                                  : Icons.visibility_off_rounded),
+                            ),
+                            suffixIconColor: const Color(0xff808080),
+                            hintText: '********',
+                            hintStyle:
+                                const TextStyle(color: Color(0xff808080)),
+                            border: OutlineInputBorder(
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            filled: true,
+                            fillColor: const Color(0xffF7F7F7)),
+                      );
                     },
-                    obscureText: true,
-                    controller: cubit.signUpPassController,
-                    decoration: InputDecoration(
-                        suffixIcon: const Icon(Icons.remove_red_eye),
-                        suffixIconColor: const Color(0xff808080),
-                        hintText: '********',
-                        hintStyle: const TextStyle(color: Color(0xff808080)),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xffF7F7F7)),
                   ),
                   const SizedBox(
                     height: 50,

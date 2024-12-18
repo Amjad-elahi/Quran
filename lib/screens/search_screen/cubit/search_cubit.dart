@@ -5,10 +5,11 @@ import 'package:quran/data_layer/data_layer.dart';
 import 'package:quran/models/search_model.dart';
 import 'package:quran/models/surah_model.dart';
 import 'package:quran/setup/setup.dart';
-
 part 'search_state.dart';
 
+/* Cubit to manage business logic separately from the UI*/
 class SearchCubit extends Cubit<SearchState> {
+  // variables
   TextEditingController searchController = TextEditingController();
   String? searchQuery;
   List<Matches> matchWord = [];
@@ -18,17 +19,22 @@ class SearchCubit extends Cubit<SearchState> {
   List<SurahModel> surah = [];
   List<SurahModel> allSurah = [];
   int? selectedValue;
+
   SearchCubit() : super(SearchInitial());
 
+  // fetch all ayahs that contain the match word
   Future<void> loadWordMatches() async {
+    emit(LoadingState());
     try {
       if (searchQuery == null || searchQuery!.isEmpty) {
         emit(ErrorState(msg: "Search query is empty"));
         return;
       }
+      // fetch all ayahs that contain the match word in all the quran
       matchWords = await getIt.get<DataLayer>().getWordMatches(searchQuery!);
 
       if (selectedValue != null) {
+        // fetch all ayahs that contain the match word in a specific surah
         filterMatchWords = await getIt
             .get<DataLayer>()
             .getFilterWordMatches(searchQuery!, selectedValue!);
@@ -57,11 +63,14 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
+  // update search query
   void updateSearchQuery(String query) {
     searchQuery = query;
   }
 
+  // fetch the surah's details
   Future<void> loadSurahDetails() async {
+    emit(LoadingState());
     try {
       allSurah = await getIt.get<DataLayer>().getSurahDetails();
       surah = allSurah;
@@ -71,10 +80,13 @@ class SearchCubit extends Cubit<SearchState> {
     }
   }
 
+  // update selected value for surah
   void updateSelectedValue(int? value) {
+    // reset the filter to general search
     if (selectedValue == null) {
       loadWordMatches();
     }
+    // choosing which surah to search for word
     selectedValue = value;
 
     emit(SurahDetailsState(surah: surah));

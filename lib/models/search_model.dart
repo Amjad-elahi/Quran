@@ -1,5 +1,6 @@
 import 'package:quran/models/surah_model.dart';
 
+// Converting API data into a structured format for easy manipulation
 class SearchModel {
   SearchModel({
     required this.count,

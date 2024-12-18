@@ -1,15 +1,15 @@
 import 'dart:async';
 import 'dart:io';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:quran/data_layer/data_layer.dart';
 import 'package:quran/setup/setup.dart';
 import 'package:supabase_flutter/supabase_flutter.dart';
-
 part 'auth_state.dart';
 
+/* Cubit to manage business logic separately from the UI*/
 class AuthCubit extends Cubit<AuthState> {
+  // variables
   final formKey = GlobalKey<FormState>();
   TextEditingController signUpEmailController = TextEditingController();
   TextEditingController signUpPassController = TextEditingController();
@@ -18,12 +18,16 @@ class AuthCubit extends Cubit<AuthState> {
   TextEditingController signInPassController = TextEditingController();
   final supabase = getIt.get<DataLayer>().supabase;
   List<Map<String, dynamic>> response = [];
+  bool isVisible = false;
+
   AuthCubit() : super(AuthInitial());
 
+  // sign up function
   signUp() async {
     emit(LoadingState());
     try {
       print('Sign-up1 start: ${DateTime.now()}');
+      // checking if email already registered
       response = await supabase
           .from("users")
           .select('email')
@@ -33,6 +37,7 @@ class AuthCubit extends Cubit<AuthState> {
         emit(ErrorState(msg: "Account Already registered"));
       } else {
         print('Sign-up2 start: ${DateTime.now()}');
+        // sign up user and store the data in supabase
         await supabase.auth.signUp(
           email: signUpEmailController.text,
           password: signUpPassController.text,
@@ -42,6 +47,7 @@ class AuthCubit extends Cubit<AuthState> {
           },
         );
         print('Query2 completed: ${DateTime.now()}');
+        // store user id
         getIt
             .get<DataLayer>()
             .box
@@ -64,6 +70,7 @@ class AuthCubit extends Cubit<AuthState> {
   signIn() async {
     emit(LoadingState());
     try {
+      // checking if email is found or not
       response = await supabase
           .from("users")
           .select()
@@ -72,10 +79,12 @@ class AuthCubit extends Cubit<AuthState> {
       if (response.isEmpty) {
         emit(ErrorState(msg: "Account not found."));
       } else {
+        // sign in user
         await supabase.auth.signInWithPassword(
           email: signInEmailController.text,
           password: signInPassController.text,
         );
+        // store user id
         getIt
             .get<DataLayer>()
             .box
@@ -93,5 +102,10 @@ class AuthCubit extends Cubit<AuthState> {
     } catch (e) {
       emit(ErrorState(msg: e.toString()));
     }
+  }
+
+  passwordVisibility() {
+    isVisible = !isVisible;
+    emit(PassVisibilityState(isVisible: isVisible));
   }
 }

@@ -1,9 +1,9 @@
 import 'package:contained_tab_bar_view/contained_tab_bar_view.dart';
 import 'package:flutter/material.dart';
 import 'package:quran/screens/auth_screens/sign_up_screen.dart';
-
 import 'sign_in_screen.dart';
 
+/* auth screen UI */
 class AuthScreen extends StatelessWidget {
   const AuthScreen({super.key});
 

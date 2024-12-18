@@ -1,3 +1,4 @@
+// Converting API data into a structured format for easy manipulation
 class SurahModel {
   SurahModel({
     required this.number,

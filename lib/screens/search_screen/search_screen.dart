@@ -7,6 +7,7 @@ import 'package:quran/screens/auth_screens/auth_screen.dart';
 import 'package:quran/screens/search_screen/cubit/search_cubit.dart';
 import 'package:quran/setup/setup.dart';
 
+/* search screen UI */
 class SearchScreen extends StatelessWidget {
   const SearchScreen({super.key});
 

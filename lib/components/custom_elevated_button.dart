@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 
+/* custom elevated button for reuse */
 class CustomElevatedButton extends StatelessWidget {
   final void Function()? onPressed;
   final String text;

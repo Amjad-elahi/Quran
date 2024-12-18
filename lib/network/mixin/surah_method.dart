@@ -3,6 +3,8 @@ import 'package:quran/models/surah_model.dart';
 import 'package:quran/network/constant_network.dart';
 
 mixin SurahMethod on ConstantNetwork {
+
+  // Retrieve the surah's details response from the API
   Future getSurahDetails() async {
     try {
       final response = await dio.get('$baseUrl$surahEndPoint');

@@ -1,5 +1,6 @@
 import 'package:dio/dio.dart';
 
+// class for storing urls
 abstract class ConstantNetwork {
   final dio = Dio();
   final String baseUrl = 'http://api.alquran.cloud/v1';

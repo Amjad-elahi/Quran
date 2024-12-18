@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quran/components/custom_elevated_button.dart';
 
+/* custom error dialog for reuse */
 class CustomErrorDialog extends StatelessWidget {
   const CustomErrorDialog({super.key, required this.msg});
   final String msg;
