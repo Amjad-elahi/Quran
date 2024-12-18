@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
+import 'package:quran/components/custom_elevated_button.dart';
 import 'package:quran/components/custom_error_msg.dart';
 import 'package:quran/data_layer/data_layer.dart';
 import 'package:quran/screens/auth_screens/auth_screen.dart';
@@ -61,7 +62,7 @@ class SearchScreen extends StatelessWidget {
                 actions: [
                   Padding(
                     padding: const EdgeInsets.symmetric(horizontal: 50),
-                    child: ElevatedButton(
+                    child: CustomElevatedButton(
                       onPressed: () {
                         getIt.get<DataLayer>().logout();
                         Navigator.pushAndRemoveUntil(
@@ -71,11 +72,8 @@ class SearchScreen extends StatelessWidget {
                                     const AuthScreen()),
                             ModalRoute.withName('/'));
                       },
-                      style: ElevatedButton.styleFrom(
-                          backgroundColor: const Color(0xff796181),
-                          foregroundColor: const Color(0xffDFDFE1),
-                          side: const BorderSide(color: Color(0xff796181))),
-                      child: const Text("Log out"),
+                      text: "Log out",
+                      fixedSize: const Size.fromHeight(35),
                     ),
                   ),
                 ],
@@ -226,6 +224,7 @@ class SearchScreen extends StatelessWidget {
                       BlocBuilder<SearchCubit, SearchState>(
                         builder: (context, state) {
                           if (state is SearchWordState) {
+                            Navigator.pop(context);
                             return ListView.separated(
                               shrinkWrap: true,
                               physics: const NeverScrollableScrollPhysics(),

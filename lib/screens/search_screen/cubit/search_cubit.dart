@@ -26,6 +26,8 @@ class SearchCubit extends Cubit<SearchState> {
   Future<void> loadWordMatches() async {
     emit(LoadingState());
     try {
+      // await Future.delayed(const Duration(seconds: 5));
+
       if (searchQuery == null || searchQuery!.isEmpty) {
         emit(ErrorState(msg: "Search query is empty"));
         return;
@@ -70,7 +72,6 @@ class SearchCubit extends Cubit<SearchState> {
 
   // fetch the surah's details
   Future<void> loadSurahDetails() async {
-    emit(LoadingState());
     try {
       allSurah = await getIt.get<DataLayer>().getSurahDetails();
       surah = allSurah;
@@ -82,13 +83,7 @@ class SearchCubit extends Cubit<SearchState> {
 
   // update selected value for surah
   void updateSelectedValue(int? value) {
-    // reset the filter to general search
-    if (selectedValue == null) {
-      loadWordMatches();
-    }
-    // choosing which surah to search for word
     selectedValue = value;
-
     emit(SurahDetailsState(surah: surah));
     loadWordMatches();
   }

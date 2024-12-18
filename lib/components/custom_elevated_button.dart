@@ -4,14 +4,15 @@ import 'package:flutter/material.dart';
 class CustomElevatedButton extends StatelessWidget {
   final void Function()? onPressed;
   final String text;
-  const CustomElevatedButton({super.key, required this.text, this.onPressed});
+  final Size? fixedSize;
+  const CustomElevatedButton({super.key, required this.text, this.onPressed, this.fixedSize = const Size.fromHeight(53)});
 
   @override
   Widget build(BuildContext context) {
     return ElevatedButton(
       onPressed: onPressed,
       style: ElevatedButton.styleFrom(
-          fixedSize: const Size.fromHeight(53),
+          fixedSize: fixedSize,
           backgroundColor: const Color(0xff796181),
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(31))),

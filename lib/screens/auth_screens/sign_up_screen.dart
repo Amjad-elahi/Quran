@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:quran/components/custom_elevated_button.dart';
 import 'package:quran/components/custom_error_msg.dart';
+import 'package:quran/components/custom_text_form_field.dart';
 import 'package:quran/screens/auth_screens/cubit/auth_cubit.dart';
 import 'package:quran/screens/search_screen/search_screen.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -62,14 +63,8 @@ class SignUpScreen extends StatelessWidget {
                   const SizedBox(
                     height: 40,
                   ),
-                  const Text(
-                    'Enter your name',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
+                  CustomTextFormField(
+                    text: 'Enter your name',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter your name";
@@ -77,26 +72,14 @@ class SignUpScreen extends StatelessWidget {
                       return null;
                     },
                     controller: cubit.nameController,
-                    decoration: InputDecoration(
-                        hintText: 'name',
-                        hintStyle: const TextStyle(color: Color(0xff808080)),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xffF7F7F7)),
+                    hintText: 'name',
+                    suffixIcon: const Icon(Icons.person_rounded),
                   ),
                   const SizedBox(
                     height: 16,
                   ),
-                  const Text(
-                    'Enter your email address',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: 8,
-                  ),
-                  TextFormField(
+                  CustomTextFormField(
+                    text: 'Enter your email address',
                     validator: (value) {
                       if (value == null || value.isEmpty) {
                         return "Please enter your email";
@@ -110,24 +93,11 @@ class SignUpScreen extends StatelessWidget {
                       return null;
                     },
                     controller: cubit.signUpEmailController,
-                    decoration: InputDecoration(
-                        hintText: 'example@gmail.com',
-                        hintStyle: const TextStyle(color: Color(0xff808080)),
-                        border: OutlineInputBorder(
-                          borderRadius: BorderRadius.circular(20),
-                        ),
-                        filled: true,
-                        fillColor: const Color(0xffF7F7F7)),
+                    hintText: 'example@gmail.com',
+                    suffixIcon: const Icon(Icons.email_rounded),
                   ),
                   const SizedBox(
                     height: 16,
-                  ),
-                  const Text(
-                    'Enter your Password',
-                    style: TextStyle(fontSize: 16),
-                  ),
-                  const SizedBox(
-                    height: 8,
                   ),
                   BlocBuilder<AuthCubit, AuthState>(
                     builder: (context, state) {
@@ -135,7 +105,8 @@ class SignUpScreen extends StatelessWidget {
                       if (state is PassVisibilityState) {
                         isPassVisible = state.isVisible;
                       }
-                      return TextFormField(
+                      return CustomTextFormField(
+                        text: 'Enter your Password',
                         validator: (value) {
                           if (value == null || value.isEmpty) {
                             return "Please enter your password";
@@ -150,24 +121,15 @@ class SignUpScreen extends StatelessWidget {
                         },
                         obscureText: !isPassVisible,
                         controller: cubit.signUpPassController,
-                        decoration: InputDecoration(
-                            suffixIcon: IconButton(
-                              onPressed: () {
-                                cubit.passwordVisibility();
-                              },
-                              icon: Icon(isPassVisible
-                                  ? Icons.visibility_rounded
-                                  : Icons.visibility_off_rounded),
-                            ),
-                            suffixIconColor: const Color(0xff808080),
-                            hintText: '********',
-                            hintStyle:
-                                const TextStyle(color: Color(0xff808080)),
-                            border: OutlineInputBorder(
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            filled: true,
-                            fillColor: const Color(0xffF7F7F7)),
+                        suffixIcon: IconButton(
+                          onPressed: () {
+                            cubit.passwordVisibility();
+                          },
+                          icon: Icon(isPassVisible
+                              ? Icons.visibility_rounded
+                              : Icons.visibility_off_rounded),
+                        ),
+                        hintText: '********',
                       );
                     },
                   ),
